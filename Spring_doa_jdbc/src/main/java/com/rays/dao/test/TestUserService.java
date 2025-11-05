@@ -1,5 +1,8 @@
 package com.rays.dao.test;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -24,7 +27,8 @@ public class TestUserService {
 //		test.testUpdate();
 //		test.testDelete();
 //		test.testLogin();
-		test.testAuthenticte();
+//		test.testAuthenticte();
+		test.testSearch();
 
 	}
 
@@ -96,6 +100,29 @@ public class TestUserService {
 			System.out.println("\t" + dto.getPassword());
 		} else {
 			System.out.println("Invalid login And Password");
+		}
+
+	}
+
+	private void testSearch() {
+
+		UserDTO dto = new UserDTO();
+
+		dto.setFirstName("Akbar");
+		List list = service.search(dto, 0, 5);
+
+		Iterator<UserDTO> it = list.iterator();
+
+		while (it.hasNext()) {
+			
+			dto = it.next();
+
+			System.out.print(dto.getId());
+			System.out.print("\t" + dto.getFirstName());
+			System.out.print("\t" + dto.getLastName());
+			System.out.print("\t" + dto.getLogin());
+			System.out.println("\t" + dto.getPassword());
+
 		}
 
 	}

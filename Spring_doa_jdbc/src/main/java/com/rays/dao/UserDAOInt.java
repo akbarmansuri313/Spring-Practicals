@@ -1,5 +1,7 @@
 package com.rays.dao;
 
+import java.util.List;
+
 import com.rays.dto.UserDTO;
 
 public interface UserDAOInt {
@@ -14,6 +16,7 @@ public interface UserDAOInt {
 	
 	public UserDTO aunthenticate(String login,String password);
 	
-	public UserDTO search(UserDTO dto);
+	public List search(UserDTO dto);
 
+	public List search(UserDTO dto, int pageNo, int pageSize);
 }

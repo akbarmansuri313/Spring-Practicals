@@ -1,5 +1,7 @@
 package com.rays.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -16,13 +18,12 @@ public class UserServiceImpl implements UserServiceInt {
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public long add(UserDTO dto) throws Exception {
-		
+
 		UserDTO existDTO = findByLogin(dto.getLogin());
 
 		if (existDTO != null) {
 
 			throw new Exception("Email Already Exist !!!!");
-
 		}
 		long pk = dao.add(dto);
 		return pk;
@@ -50,6 +51,19 @@ public class UserServiceImpl implements UserServiceInt {
 
 		UserDTO dto = dao.aunthenticate(login, password);
 		return dto;
+	}
+
+	public List search(UserDTO dto) {
+
+		List list = dao.search(dto);
+		return list;
+		
+	}
+
+	public List search(UserDTO dto, int pageNo, int pageSize) {
+	
+		List list  = dao.search(dto, pageNo, pageSize);
+		return list;
 	}
 
 }

@@ -16,6 +16,7 @@ import com.rays.dto.UserDTO;
 public class UserDAOHibImpl implements UserDAOInt {
 
 	@Autowired
+	
 	public SessionFactory sessionFactory;
 
 	@Override

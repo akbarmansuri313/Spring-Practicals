@@ -1,17 +1,24 @@
 package com.rays.form;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class UserRegistrationForm {
 
 	protected long id = 0;
 	
+	@NotEmpty(message = "first name is required")
 	private String firstName;
 	
+	@NotEmpty(message = "Last Name is required")
 	private String lastName;
 	
+	@NotEmpty(message = "Login is required")
 	private String login;
 	
+	@NotEmpty(message = "Password is required")
 	private String password;
 	
+	@NotEmpty(message = "Address is required")
 	private String address;
 
 	public long getId() {

@@ -2,9 +2,12 @@ package com.rays.ctl;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -83,14 +86,18 @@ public class UserCtl {
 	}
 
 	@PostMapping("search")
-	public String display(@ModelAttribute("form") UserForm form, @RequestParam(required = false) String operation,
-			Model model) {
+	public String display(@ModelAttribute("form") @Valid UserForm form, @RequestParam(required = false) String operation,
+			Model model, BindingResult br) {
 
 		UserDTO dto = null;
 
+		if (br.hasErrors()) {
+			return "UserView";
+			
+		} 
 		int pageNo = 1;
 		int pageSize = 5;
-		System.out.println("op =====> " + operation);
+		
 		if (operation != null && operation.equals("next")) {
 			pageNo = form.getPageNo();
 			pageNo++;
@@ -108,7 +115,9 @@ public class UserCtl {
 		}
 
 		if (operation != null && operation.equals("delete")) {
+			
 			if (form.getIds() != null && form.getIds().length > 0) {
+				
 				for (long id : form.getIds()) {
 					service.delete(id);
 					model.addAttribute("successMsg", "record deleted successfully");

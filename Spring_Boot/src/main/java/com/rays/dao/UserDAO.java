@@ -41,12 +41,19 @@ public class UserDAO {
 	
 	public void update(UserDTO dto) {
 		populate(dto);
-		entityManager.persist(dto);
+		entityManager.merge(dto);
 	}
 	
 	public void delete(UserDTO dto) {
 		populate(dto);
-		entityManager.merge(dto);
+		entityManager.remove(dto);
+	}
+	
+	public UserDTO findByPk(long pk) {
+		
+		UserDTO dto = entityManager.find(UserDTO.class, pk);
+		return dto;
+		
 	}
 
 }
